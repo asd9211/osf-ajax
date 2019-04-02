@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-나는 ${param.board_title}리스트입니다.<br>
+${sessionScope.user}
 </body>
 </html>
