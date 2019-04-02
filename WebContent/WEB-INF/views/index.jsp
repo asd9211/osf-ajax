@@ -1,6 +1,25 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+Map<String,String[]> paramMap = request.getParameterMap();
+Iterator<String> it = paramMap.keySet().iterator();
+while(it.hasNext()){
+	String key = it.next();
+	String[] values = paramMap.get(key);
+	out.println("key : " + key);
+	if(values.length<=1){
+		out.println("value : " + values[0]);
+	}else{
+		out.println("value : ");
+		for(String value:values){
+			out.println(value+",");
+		}
+	}
+	out.println("<br>");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -17,5 +17,16 @@ public class MovieServiceImpl implements MovieService {
 	public int insertMoive(Map<String, String> movie) {
 		return mdao.insertMovie(movie);
 	}
+	@Override
+	public Map<String, String> selectMovieByMiNum(int miNum) {
+		return mdao.selectMovieByMiNum(miNum);
+	}
+	@Override
+	public int deleteMove(int miNum) {
+		return mdao.deleteMovie(miNum);
+	}
 
 }
+
+
+
