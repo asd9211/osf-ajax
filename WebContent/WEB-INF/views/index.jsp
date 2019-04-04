@@ -2,24 +2,6 @@
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-Map<String,String[]> paramMap = request.getParameterMap();
-Iterator<String> it = paramMap.keySet().iterator();
-while(it.hasNext()){
-	String key = it.next();
-	String[] values = paramMap.get(key);
-	out.println("key : " + key);
-	if(values.length<=1){
-		out.println("value : " + values[0]);
-	}else{
-		out.println("value : ");
-		for(String value:values){
-			out.println(value+",");
-		}
-	}
-	out.println("<br>");
-}
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +10,7 @@ while(it.hasNext()){
 </head>
 <body>
 <a href="/movie/list">영화개봉리스트</a><br>
+<a href="/views/movie/ajax_list">Ajax리스트가기</a>
 <c:if test="${sessionScope.user==null}">
 <form method="post" action="/user">
 <table border="1">
