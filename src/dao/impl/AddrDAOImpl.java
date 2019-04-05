@@ -27,7 +27,6 @@ public class AddrDAOImpl implements AddrDAO {
 			if(adDong!=null) {
 				sql = selectAddrListSql.replace("$where$"," where ad_dong like '%' || ? || '%'");
 			}
-			System.out.println(sql);
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
 			ps.setString(1, addr.get("lNum"));
 			ps.setString(2, addr.get("sNum"));
