@@ -31,12 +31,32 @@
 	<tbody id="tBody">
 	</tbody>
 </table>
+<div id="dView"></div>
 <script>
+	function search(){
+		var ad_dong = document.querySelector('#ad_dong').value;
+		location.href="/views/addr2/list?pageCount=${param.pageCount}&ad_dong=" + ad_dong;
+	}
 	function changePageCount(obj){
 		location.href='/views/addr2/list?pageCount=' + obj.value;
 	}
+	function view(adNum){
+		xhr.open('GET','/addr2/view?ad_num=' + adNum);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				if(xhr.status == 200){
+					document.querySelector('#dView').innerHTML = xhr.response;
+				}
+			}
+		}
+		xhr.send();
+	}
+
+	function closeTable(){
+		document.querySelector('#addrTable').style.display='none';
+	}
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET','/addr2/list?pageCount=${param.pageCount}&page=${param.page}');
+	xhr.open('GET','/addr2/list?pageCount=${param.pageCount}&page=${param.page}&ad_dong=${param.ad_dong}');
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState==4){
 			if(xhr.status==200){
@@ -49,7 +69,7 @@
 					html += '<td>' + addr.ad_num + '</td>';
 					html += '<td>' + addr.ad_sido + '</td>';
 					html += '<td>' + addr.ad_gugun + '</td>';
-					html += '<td>' + addr.ad_dong + '</td>';
+					html += '<td><a href="javascript:view(' + addr.ad_num + ')">' + addr.ad_dong + '</a></td>';
 					html += '<td>' + (addr.ad_lee?addr.ad_lee:'') + '</td>';
 					html += '<td>' + addr.ad_bunji + '</td>';
 					html += '<td>' + addr.ad_ho + '</td>';
