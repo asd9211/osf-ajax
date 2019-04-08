@@ -41,6 +41,17 @@
 			<td>${addr.ad_ho}</td>
 		</tr>
 	</table>
-	<button>리스트가기</button>
+	<button onclick="goList()">리스트가기</button>
+<script>
+	function goList(){
+		location.href="/addr/list?page=${page}&pageCount=${pageCount}&ad_dong=${param.ad_dong}";
+	}
+</script>	
 </body>
 </html>
+
+
+
+
+
+
