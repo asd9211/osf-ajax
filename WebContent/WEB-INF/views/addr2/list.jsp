@@ -7,6 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<label for="ad_dong">읍면동 : </label><input type="text" name="ad_dong" id="ad_dong">
+<button onclick="search()">검색</button>
+<select id="pageCount" name="pageCount" onchange="changePageCount(this)">
+	<option value="10">10</option>
+	<option value="20">20</option>
+	<option value="30">30</option>
+	<option value="40">40</option>
+	<option value="50">50</option>
+</select>
+
 <table border="1">
 	<tr>
 		<th>번호</th>
@@ -21,14 +32,19 @@
 	</tbody>
 </table>
 <script>
+	function changePageCount(obj){
+		location.href='/views/addr2/list?pageCount=' + obj.value;
+	}
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET','/addr2/list');
+	xhr.open('GET','/addr2/list?pageCount=${param.pageCount}&page=${param.page}');
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState==4){
 			if(xhr.status==200){
-				var list = JSON.parse(xhr.response);
+				console.log(xhr.response);
+				var res = JSON.parse(xhr.response);
+				document.querySelector('#pageCount').value = res.pageCount;
 				var html = '';
-				for(var addr of list){
+				for(var addr of res.list){
 					html += '<tr>';
 					html += '<td>' + addr.ad_num + '</td>';
 					html += '<td>' + addr.ad_sido + '</td>';
@@ -39,6 +55,17 @@
 					html += '<td>' + addr.ad_ho + '</td>';
 					html += '</tr>';
 				}
+				html +='<tr>';
+				html += '<td colspan="7">';
+				for(var i=res.fBlock;i<=res.lBlock;i++){
+					if(i==res.page){
+						html += '<b>[' + i + ']</b>';
+					}else{
+						html += '<a href="/views/addr2/list?pageCount=' + res.pageCount + '&page=' + i + '">[' + i + ']</a>';
+					}
+				}
+				html += '</td>';
+				html +='</tr>';				
 				document.querySelector('#tBody').innerHTML = html;
 			}
 		}
@@ -47,3 +74,5 @@
 </script>
 </body>
 </html>
+
+
