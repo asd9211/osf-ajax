@@ -41,7 +41,7 @@
 		location.href='/views/addr2/list?pageCount=' + obj.value;
 	}
 	function view(adNum){
-		xhr.open('GET','/addr2/view?ad_num=' + adNum);
+		xhr.open('GET','/views/addr2/view?ad_num=' + adNum);
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4){
 				if(xhr.status == 200){
